@@ -1,0 +1,383 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daachi™ Kitchenware</title>
+
+<style>
+:root {
+  --red: #bd0912;
+  --deep: #ad0712;
+  --ink: #212121;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--ink);
+  background: #f4f4f4;
+}
+
+button, a { font: inherit; }
+button { cursor: pointer; }
+
+#splash, #welcome {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 26px;
+}
+
+#splash {
+  background: var(--red);
+  color: white;
+}
+
+#welcome {
+  display: none;
+  background: white;
+}
+
+.logo {
+  width: 190px;
+  max-width: 65vw;
+  height: auto;
+  object-fit: contain;
+}
+
+.brand {
+  font-size: 30px;
+  font-weight: 800;
+  margin: 16px 0 0;
+}
+
+.tag {
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-top: 8px;
+  font-weight: 600;
+}
+
+.welcome-logo {
+  background: var(--red);
+  border-radius: 22px;
+  padding: 22px;
+  display: flex;
+  justify-content: center;
+  width: 220px;
+}
+
+.welcome-logo img { width: 170px; }
+
+.intro {
+  max-width: 290px;
+  line-height: 1.5;
+  color: #555;
+}
+
+.primary {
+  background: var(--red);
+  border: 0;
+  border-radius: 10px;
+  color: white;
+  font-weight: 700;
+  padding: 15px 25px;
+  min-width: 220px;
+  margin-top: 28px;
+}
+
+.app {
+  display: none;
+  height: 100dvh;
+  flex-direction: column;
+}
+
+.header {
+  height: 66px;
+  background: var(--red);
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 15px;
+  flex-shrink: 0;
+}
+
+.hamburger {
+  border: 0;
+  background: none;
+  color: white;
+  font-size: 29px;
+  padding: 0 6px;
+}
+
+.mini-camel {
+  width: 48px;
+  height: 44px;
+  object-fit: contain;
+}
+
+.head-title {
+  font-weight: 800;
+  font-size: 17px;
+}
+
+.head-sub {
+  font-size: 9px;
+  letter-spacing: 1.6px;
+}
+
+.site-frame {
+  border: 0;
+  width: 100%;
+  flex: 1;
+  background: white;
+}
+
+.notice {
+  font-size: 12px;
+  padding: 9px 12px;
+  background: #fff5e9;
+  text-align: center;
+  color: #67451e;
+}
+
+.notice a {
+  color: var(--deep);
+  font-weight: 700;
+}
+
+.scrim {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #0008;
+  z-index: 29;
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: min(315px, 85vw);
+  background: white;
+  z-index: 30;
+  transform: translateX(-105%);
+  transition: transform .2s;
+  box-shadow: 4px 0 25px #0003;
+  overflow: auto;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-head {
+  background: var(--red);
+  color: white;
+  padding: 30px 20px 22px;
+}
+
+.drawer-head img {
+  width: 95px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.drawer-head strong {
+  display: block;
+  font-size: 21px;
+}
+
+.drawer-head small { letter-spacing: 1.8px; }
+
+.nav { padding: 14px; }
+
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px 12px;
+  border-radius: 9px;
+  color: #222;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.nav a:hover { background: #f8eded; }
+
+.nav .ico {
+  width: 28px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.drawer-note {
+  font-size: 12px;
+  color: #777;
+  padding: 10px 24px;
+  line-height: 1.5;
+}
+
+.footer {
+  font-size: 11px;
+  text-align: center;
+  color: #666;
+  padding: 7px;
+  background: #fafafa;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Opening Screen -->
+<section id="splash">
+  <img class="logo" src="camel-white.png" alt="Daachi white camel logo">
+  <div class="brand">Daachi™ Kitchenware</div>
+  <div class="tag">ALWAYS HAPPINESS</div>
+</section>
+
+<!-- Welcome Screen -->
+<section id="welcome">
+  <div class="welcome-logo">
+    <img src="camel-white.png" alt="Daachi white camel logo">
+  </div>
+
+  <h1>Welcome to Daachi™</h1>
+
+  <p class="intro">
+    Premium Kitchenware &amp; Thermoware.<br>
+    Shop directly from our official website.
+  </p>
+
+  <button class="primary" id="start">Start Shopping</button>
+</section>
+
+<!-- Main App -->
+<main id="app" class="app">
+
+  <header class="header">
+    <button class="hamburger" id="menu" aria-label="Open side menu">☰</button>
+
+    <img class="mini-camel" src="camel-white.png" alt="">
+
+    <div>
+      <div class="head-title">Daachi™ Kitchenware</div>
+      <div class="head-sub">ALWAYS HAPPINESS</div>
+    </div>
+  </header>
+
+  <div class="notice">
+    Website not displaying?
+    <a href="https://daachi.co.in/" target="_blank" rel="noopener noreferrer">
+      Open Daachi website ↗
+    </a>
+  </div>
+
+  <iframe
+    class="site-frame"
+    src="https://daachi.co.in/"
+    title="Daachi official shopping website">
+  </iframe>
+
+  <div class="footer">
+    Daachi™ Kitchenware — ALWAYS HAPPINESS
+  </div>
+
+</main>
+
+<!-- Side Menu -->
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer">
+
+  <div class="drawer-head">
+    <img src="camel-white.png" alt="Daachi logo">
+    <strong>Daachi™ Kitchenware</strong>
+    <small>ALWAYS HAPPINESS</small>
+  </div>
+
+  <nav class="nav">
+
+    <a href="https://daachi.co.in/" target="_blank" rel="noopener noreferrer">
+      <span class="ico">🏠</span> Official Website
+    </a>
+
+    <a href="https://www.amazon.in/stores/Daachi/page/C701DDFF-6203-4E5C-B019-6F8A620176B3" target="_blank" rel="noopener noreferrer">
+      <span class="ico">🛒</span> Amazon Store
+    </a>
+
+    <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer">
+      <span class="ico">◎</span> Instagram
+    </a>
+
+    <a href="https://www.facebook.com/Daachi.Thermoware" target="_blank" rel="noopener noreferrer">
+      <span class="ico">f</span> Facebook
+    </a>
+
+    <a href="https://www.youtube.com/@daacchi.Thermoware.official" target="_blank" rel="noopener noreferrer">
+      <span class="ico">▶</span> YouTube
+    </a>
+
+    <a href="https://steady-fox-a20138.netlify.app/" target="_blank" rel="noopener noreferrer">
+      <span class="ico">▣</span> Digital Business Card
+    </a>
+
+  </nav>
+
+  <p class="drawer-note">
+    External links open in a new browser tab.
+  </p>
+
+</aside>
+
+<script>
+const splash = document.getElementById('splash');
+const welcome = document.getElementById('welcome');
+const app = document.getElementById('app');
+
+setTimeout(() => {
+  splash.style.display = 'none';
+
+  if (localStorage.getItem('daachi-welcomed')) {
+    app.style.display = 'flex';
+  } else {
+    welcome.style.display = 'flex';
+  }
+}, 1450);
+
+document.getElementById('start').addEventListener('click', () => {
+  localStorage.setItem('daachi-welcomed', '1');
+  welcome.style.display = 'none';
+  app.style.display = 'flex';
+});
+
+const drawer = document.getElementById('drawer');
+const scrim = document.getElementById('scrim');
+
+function toggle(open) {
+  drawer.classList.toggle('open', open);
+  scrim.style.display = open ? 'block' : 'none';
+}
+
+document.getElementById('menu').onclick = () => toggle(true);
+scrim.onclick = () => toggle(false);
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') toggle(false);
+});
+</script>
+
+</body>
+</html>
