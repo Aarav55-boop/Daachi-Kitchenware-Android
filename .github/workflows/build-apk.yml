@@ -28,8 +28,25 @@ jobs:
       - name: Setup Android SDK
         run: |
           echo "Android SDK: $ANDROID_HOME"
-          yes | sdkmanager --licenses > /dev/null || true
-          sdkmanager --install \
+
+          SDKMANAGER="$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager"
+
+          if [ ! -x "$SDKMANAGER" ]; then
+            SDKMANAGER="$ANDROID_HOME/cmdline-tools/16.0/bin/sdkmanager"
+          fi
+
+          if [ ! -x "$SDKMANAGER" ]; then
+            echo "Error: sdkmanager not found"
+            exit 1
+          fi
+
+          echo "Using SDK Manager: $SDKMANAGER"
+
+          set +o pipefail
+          yes | "$SDKMANAGER" --licenses
+          set -o pipefail
+
+          "$SDKMANAGER" --install \
             "platforms;android-35" \
             "build-tools;35.0.0"
 
