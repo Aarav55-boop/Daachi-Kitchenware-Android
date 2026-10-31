@@ -1,5 +1,5 @@
 
-name: Build Daachi Android APK
+name: Build Daachi Android AAB
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Android APK
+    name: Build Android AAB
     runs-on: ubuntu-24.04
 
     permissions:
@@ -27,8 +27,6 @@ jobs:
 
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
-        with:
-          packages: ''
 
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -41,14 +39,14 @@ jobs:
             "platforms;android-35" \
             "build-tools;35.0.0"
 
-      - name: Build Daachi Debug APK
+      - name: Build Daachi Release AAB
         run: |
-          gradle --no-daemon :app:assembleDebug
+          gradle --no-daemon :app:bundleRelease
 
-      - name: Upload Daachi APK
+      - name: Upload Daachi AAB
         uses: actions/upload-artifact@v4
         with:
-          name: Daachi-Kitchenware-debug-APK
-          path: app/build/outputs/apk/debug/app-debug.apk
+          name: Daachi-Kitchenware-release-AAB-unsigned
+          path: app/build/outputs/bundle/release/*.aab
           if-no-files-found: error
           retention-days: 30
