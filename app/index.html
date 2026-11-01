@@ -3,27 +3,42 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#bd0912">
 <title>Daachi™ Kitchenware</title>
 
 <style>
 :root {
   --red: #bd0912;
-  --deep: #ad0712;
-  --ink: #212121;
+  --deep: #a70710;
+  --ink: #202124;
+  --muted: #69707a;
+  --line: #eeeeee;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-body {
+html, body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  width: 100%;
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
   color: var(--ink);
-  background: #f4f4f4;
+  background: #ffffff;
 }
 
-button, a { font: inherit; }
-button { cursor: pointer; }
+button, a {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* SPLASH AND WELCOME */
 
 #splash, #welcome {
   position: fixed;
@@ -76,91 +91,132 @@ button { cursor: pointer; }
   width: 220px;
 }
 
-.welcome-logo img { width: 170px; }
+.welcome-logo img {
+  width: 170px;
+}
 
 .intro {
   max-width: 290px;
-  line-height: 1.5;
+  line-height: 1.6;
   color: #555;
+  font-size: 14px;
 }
 
 .primary {
   background: var(--red);
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
   color: white;
   font-weight: 700;
-  padding: 15px 25px;
+  padding: 16px 25px;
   min-width: 220px;
   margin-top: 28px;
+  box-shadow: 0 5px 14px #bd091229;
 }
+
+.primary:active {
+  transform: scale(.98);
+}
+
+/* MAIN APP */
 
 .app {
   display: none;
+  height: 100vh;
   height: 100dvh;
   flex-direction: column;
+  overflow: hidden;
+  background: white;
 }
 
+/* MINIMAL TOP BAR */
+
 .header {
-  height: 66px;
+  height: 48px;
+  min-height: 48px;
   background: var(--red);
   color: white;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 8px 15px;
+  justify-content: flex-end;
+  padding: 0 12px;
   flex-shrink: 0;
+  box-shadow: 0 2px 7px #00000012;
 }
 
-.hamburger {
-  border: 0;
-  background: none;
+.menu-button {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
   color: white;
-  font-size: 29px;
-  padding: 0 6px;
+  border-radius: 50%;
+  font-size: 28px;
+  line-height: 1;
 }
 
-.mini-camel {
-  width: 48px;
-  height: 44px;
-  object-fit: contain;
+.menu-button:active {
+  background: #ffffff24;
 }
 
-.head-title {
-  font-weight: 800;
-  font-size: 17px;
-}
+/* WEBSITE */
 
-.head-sub {
-  font-size: 9px;
-  letter-spacing: 1.6px;
+.website-area {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  background: #fff;
 }
 
 .site-frame {
   border: 0;
+  display: block;
   width: 100%;
-  flex: 1;
+  height: 100%;
+  background: #fff;
+}
+
+.loading {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
   background: white;
+  color: var(--muted);
+  font-size: 13px;
 }
 
-.notice {
-  font-size: 12px;
-  padding: 9px 12px;
-  background: #fff5e9;
-  text-align: center;
-  color: #67451e;
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #f2d9dc;
+  border-top-color: var(--red);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
 }
 
-.notice a {
-  color: var(--deep);
-  font-weight: 700;
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
+
+.loading.hidden {
+  display: none;
+}
+
+/* SIDE DRAWER */
 
 .scrim {
   display: none;
   position: fixed;
   inset: 0;
-  background: #0008;
+  background: #00000085;
   z-index: 29;
 }
 
@@ -169,13 +225,14 @@ button { cursor: pointer; }
   top: 0;
   bottom: 0;
   left: 0;
-  width: min(315px, 85vw);
-  background: white;
+  width: min(320px, 86vw);
+  background: #fff;
   z-index: 30;
   transform: translateX(-105%);
-  transition: transform .2s;
-  box-shadow: 4px 0 25px #0003;
-  overflow: auto;
+  transition: transform .25s ease;
+  box-shadow: 5px 0 28px #00000020;
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .drawer.open {
@@ -185,73 +242,124 @@ button { cursor: pointer; }
 .drawer-head {
   background: var(--red);
   color: white;
-  padding: 30px 20px 22px;
+  padding: 36px 22px 25px;
 }
 
 .drawer-head img {
-  width: 95px;
-  height: 80px;
+  width: 88px;
+  height: 75px;
   object-fit: contain;
+  display: block;
+  margin-bottom: 12px;
 }
 
 .drawer-head strong {
   display: block;
-  font-size: 21px;
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 5px;
 }
 
-.drawer-head small { letter-spacing: 1.8px; }
+.drawer-head small {
+  letter-spacing: 1.8px;
+  font-size: 10px;
+  opacity: .9;
+}
 
-.nav { padding: 14px; }
+.drawer-label {
+  padding: 22px 24px 8px;
+  font-size: 11px;
+  color: #858585;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.nav {
+  padding: 5px 12px 15px;
+}
 
 .nav a {
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 16px 12px;
-  border-radius: 9px;
-  color: #222;
+  gap: 15px;
+  padding: 15px 13px;
+  border-radius: 11px;
+  color: #292929;
   text-decoration: none;
   font-weight: 600;
+  font-size: 14px;
 }
 
-.nav a:hover { background: #f8eded; }
+.nav a:active,
+.nav a:hover {
+  background: #f9eeee;
+  color: var(--red);
+}
 
 .nav .ico {
-  width: 28px;
-  text-align: center;
-  font-size: 22px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f1f1;
+  border-radius: 9px;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+
+.drawer-divider {
+  height: 1px;
+  background: var(--line);
+  margin: 8px 22px;
 }
 
 .drawer-note {
   font-size: 12px;
-  color: #777;
-  padding: 10px 24px;
-  line-height: 1.5;
+  color: #888;
+  padding: 10px 24px 25px;
+  line-height: 1.6;
 }
 
-.footer {
-  font-size: 11px;
-  text-align: center;
-  color: #666;
-  padding: 7px;
-  background: #fafafa;
+/* SMALL DEVICES */
+
+@media (max-width: 360px) {
+  .brand {
+    font-size: 26px;
+  }
+
+  .header {
+    height: 44px;
+    min-height: 44px;
+  }
 }
+
 </style>
 </head>
 
 <body>
 
-<!-- Opening Screen -->
+<!-- SPLASH SCREEN -->
+
 <section id="splash">
-  <img class="logo" src="camel-white.png" alt="Daachi white camel logo">
+  <img
+    class="logo"
+    src="camel-white.png"
+    alt="Daachi white camel logo"
+  >
   <div class="brand">Daachi™ Kitchenware</div>
   <div class="tag">ALWAYS HAPPINESS</div>
 </section>
 
-<!-- Welcome Screen -->
+<!-- WELCOME SCREEN -->
+
 <section id="welcome">
   <div class="welcome-logo">
-    <img src="camel-white.png" alt="Daachi white camel logo">
+    <img
+      src="camel-white.png"
+      alt="Daachi white camel logo"
+    >
   </div>
 
   <h1>Welcome to Daachi™</h1>
@@ -261,46 +369,57 @@ button { cursor: pointer; }
     Shop directly from our official website.
   </p>
 
-  <button class="primary" id="start">Start Shopping</button>
+  <button class="primary" id="start">
+    Start Shopping
+  </button>
 </section>
 
-<!-- Main App -->
+<!-- MAIN SHOPPING SCREEN -->
+
 <main id="app" class="app">
 
   <header class="header">
-    <button class="hamburger" id="menu" aria-label="Open side menu">☰</button>
-
-    <img class="mini-camel" src="camel-white.png" alt="">
-
-    <div>
-      <div class="head-title">Daachi™ Kitchenware</div>
-      <div class="head-sub">ALWAYS HAPPINESS</div>
-    </div>
+    <button
+      class="menu-button"
+      id="menu"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      aria-controls="drawer"
+      type="button"
+    >&#8942;</button>
   </header>
 
-  <div class="notice">
-    Website not displaying?
-    <a href="https://daachi.co.in/" target="_blank" rel="noopener noreferrer">
-      Open Daachi website ↗
-    </a>
-  </div>
+  <div class="website-area">
 
-  <iframe
-    class="site-frame"
-    src="https://daachi.co.in/"
-    title="Daachi official shopping website">
-  </iframe>
+    <div class="loading" id="loading">
+      <div class="spinner"></div>
+      <span>Loading Daachi Store...</span>
+    </div>
 
-  <div class="footer">
-    Daachi™ Kitchenware — ALWAYS HAPPINESS
+    <iframe
+      id="storeFrame"
+      class="site-frame"
+      src="https://daachi.co.in/"
+      title="Daachi Official Shopping Website"
+      allow="payment"
+    ></iframe>
+
   </div>
 
 </main>
 
-<!-- Side Menu -->
+<!-- SIDE MENU BACKDROP -->
+
 <div class="scrim" id="scrim"></div>
 
-<aside class="drawer" id="drawer">
+<!-- SIDE MENU -->
+
+<aside
+  class="drawer"
+  id="drawer"
+  aria-label="Navigation menu"
+  aria-hidden="true"
+>
 
   <div class="drawer-head">
     <img src="camel-white.png" alt="Daachi logo">
@@ -308,75 +427,161 @@ button { cursor: pointer; }
     <small>ALWAYS HAPPINESS</small>
   </div>
 
+  <div class="drawer-label">Explore Daachi</div>
+
   <nav class="nav">
 
-    <a href="https://daachi.co.in/" target="_blank" rel="noopener noreferrer">
-      <span class="ico">🏠</span> Official Website
+    <a
+      href="https://daachi.co.in/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="ico">🏠</span>
+      Official Website
     </a>
 
-    <a href="https://www.amazon.in/stores/Daachi/page/C701DDFF-6203-4E5C-B019-6F8A620176B3" target="_blank" rel="noopener noreferrer">
-      <span class="ico">🛒</span> Amazon Store
+    <a
+      href="https://www.amazon.in/stores/Daachi/page/C701DDFF-6203-4E5C-B019-6F8A620176B3"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="ico">🛒</span>
+      Amazon Store
     </a>
 
-    <a href="https://www.instagram.com/?hl=en" target="_blank" rel="noopener noreferrer">
-      <span class="ico">◎</span> Instagram
+    <div class="drawer-divider"></div>
+
+    <a
+      href="https://www.instagram.com/?hl=en"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="ico">◎</span>
+      Instagram
     </a>
 
-    <a href="https://www.facebook.com/Daachi.Thermoware" target="_blank" rel="noopener noreferrer">
-      <span class="ico">f</span> Facebook
+    <a
+      href="https://www.facebook.com/Daachi.Thermoware"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="ico">f</span>
+      Facebook
     </a>
 
-    <a href="https://www.youtube.com/@daacchi.Thermoware.official" target="_blank" rel="noopener noreferrer">
-      <span class="ico">▶</span> YouTube
+    <a
+      href="https://www.youtube.com/@daacchi.Thermoware.official"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="ico">▶</span>
+      YouTube
     </a>
 
-    <a href="https://steady-fox-a20138.netlify.app/" target="_blank" rel="noopener noreferrer">
-      <span class="ico">▣</span> Digital Business Card
+    <div class="drawer-divider"></div>
+
+    <a
+      href="https://steady-fox-a20138.netlify.app/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="ico">▣</span>
+      Digital Business Card
     </a>
 
   </nav>
 
   <p class="drawer-note">
-    External links open in a new browser tab.
+    External links open in your browser.<br>
+    Daachi™ Kitchenware — ALWAYS HAPPINESS
   </p>
 
 </aside>
 
 <script>
+
 const splash = document.getElementById('splash');
 const welcome = document.getElementById('welcome');
 const app = document.getElementById('app');
 
-setTimeout(() => {
-  splash.style.display = 'none';
-
-  if (localStorage.getItem('daachi-welcomed')) {
-    app.style.display = 'flex';
-  } else {
-    welcome.style.display = 'flex';
-  }
-}, 1450);
-
-document.getElementById('start').addEventListener('click', () => {
-  localStorage.setItem('daachi-welcomed', '1');
-  welcome.style.display = 'none';
-  app.style.display = 'flex';
-});
-
 const drawer = document.getElementById('drawer');
 const scrim = document.getElementById('scrim');
+const menuButton = document.getElementById('menu');
 
-function toggle(open) {
+const storeFrame = document.getElementById('storeFrame');
+const loading = document.getElementById('loading');
+
+/* OPENING SCREEN */
+
+setTimeout(() => {
+
+  splash.style.display = 'none';
+
+  try {
+    if (localStorage.getItem('daachi-welcomed')) {
+      app.style.display = 'flex';
+    } else {
+      welcome.style.display = 'flex';
+    }
+  } catch (error) {
+    welcome.style.display = 'flex';
+  }
+
+}, 1450);
+
+/* START SHOPPING */
+
+document.getElementById('start').addEventListener('click', () => {
+
+  try {
+    localStorage.setItem('daachi-welcomed', '1');
+  } catch (error) {
+    // Continue even if storage is unavailable.
+  }
+
+  welcome.style.display = 'none';
+  app.style.display = 'flex';
+
+});
+
+/* SIDE MENU */
+
+function toggleMenu(open) {
+
   drawer.classList.toggle('open', open);
   scrim.style.display = open ? 'block' : 'none';
+
+  drawer.setAttribute('aria-hidden', String(!open));
+  menuButton.setAttribute('aria-expanded', String(open));
+
 }
 
-document.getElementById('menu').onclick = () => toggle(true);
-scrim.onclick = () => toggle(false);
-
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') toggle(false);
+menuButton.addEventListener('click', () => {
+  toggleMenu(true);
 });
+
+scrim.addEventListener('click', () => {
+  toggleMenu(false);
+});
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    toggleMenu(false);
+  }
+});
+
+/* WEBSITE LOADING */
+
+storeFrame.addEventListener('load', () => {
+  loading.classList.add('hidden');
+});
+
+/* PREVENT LOADER FROM STAYING FOREVER */
+
+setTimeout(() => {
+  loading.classList.add('hidden');
+}, 12000);
+
 </script>
 
 </body>
