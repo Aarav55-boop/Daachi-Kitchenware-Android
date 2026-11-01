@@ -1,51 +1,139 @@
+
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
-    <WebView android:id="@+id/webView" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:visibility="gone" />
-    <LinearLayout android:id="@+id/welcome" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:orientation="vertical"
-        android:background="#FFFFFF" android:visibility="gone" android:padding="24dp">
-        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:gravity="center" android:orientation="vertical" android:layout_marginTop="32dp">
-            <FrameLayout android:layout_width="86dp" android:layout_height="86dp" android:background="@drawable/red_circle">
-                <ImageView android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:padding="10dp" android:src="@drawable/daachi_camel_white"
-                    android:contentDescription="Daachi camel logo" android:scaleType="fitCenter" />
-            </FrameLayout>
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="Daachi™ Kitchenware" android:textColor="#D40010" android:textSize="25sp"
-                android:textStyle="bold" android:layout_marginTop="12dp" />
-            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-                android:text="ALWAYS HAPPINESS" android:textColor="#555555" android:textSize="12sp"
-                android:letterSpacing="0.15" android:layout_marginTop="4dp" />
-        </LinearLayout>
-        <ImageView android:layout_width="match_parent" android:layout_height="0dp"
-            android:layout_weight="1" android:src="@drawable/shopping_welcome"
-            android:contentDescription="Shopping cart illustration" android:scaleType="fitCenter" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Welcome to Daachi" android:textColor="#222222" android:textSize="24sp"
-            android:textStyle="bold" android:gravity="center" />
-        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-            android:text="Explore kitchenware, shop your favourites and order online."
-            android:textColor="#666666" android:textSize="15sp" android:gravity="center"
-            android:layout_marginTop="10dp" android:layout_marginBottom="28dp" />
-        <Button android:id="@+id/startShopping" android:layout_width="match_parent"
-            android:layout_height="56dp" android:text="START SHOPPING" android:textColor="#FFFFFF"
-            android:textStyle="bold" android:textSize="16sp" android:backgroundTint="#EF0012"
-            android:layout_marginBottom="22dp" />
-    </LinearLayout>
-    <LinearLayout android:id="@+id/splash" android:layout_width="match_parent"
-        android:layout_height="match_parent" android:orientation="vertical"
-        android:gravity="center" android:background="#EF0012" android:padding="28dp">
-        <ImageView android:layout_width="230dp" android:layout_height="230dp"
-            android:src="@drawable/daachi_camel_white" android:contentDescription="Daachi camel logo"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <!-- WEBVIEW -->
+    <WebView
+        android:id="@+id/webView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+    <!-- WELCOME SCREEN -->
+    <LinearLayout
+        android:id="@+id/welcome"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:background="#FFFFFF"
+        android:visibility="gone"
+        android:padding="24dp">
+
+        <FrameLayout
+            android:layout_width="110dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/red_circle">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="16dp"
+                android:src="@drawable/daachi_camel_white"
+                android:contentDescription="Daachi camel logo"
+                android:scaleType="fitCenter" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:text="Daachi™ Kitchenware"
+            android:textColor="#E10716"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="ALWAYS HAPPINESS"
+            android:textColor="#666666"
+            android:textSize="12sp"
+            android:letterSpacing="0.15" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/shopping_welcome"
+            android:contentDescription="Shopping illustration"
             android:scaleType="fitCenter" />
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Daachi™ Kitchenware" android:textColor="#FFFFFF"
-            android:textStyle="bold" android:textSize="29sp" android:gravity="center" />
-        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="ALWAYS HAPPINESS" android:textColor="#FFFFFF"
-            android:textSize="14sp" android:letterSpacing="0.16" android:layout_marginTop="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Welcome to Daachi"
+            android:textColor="#222222"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Explore premium kitchenware and shop directly from our official store."
+            android:textColor="#666666"
+            android:textSize="15sp"
+            android:gravity="center"
+            android:lineSpacingExtra="4dp" />
+
+        <Button
+            android:id="@+id/startShopping"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="28dp"
+            android:layout_marginBottom="24dp"
+            android:text="START SHOPPING"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:backgroundTint="#E10716" />
+
     </LinearLayout>
+
+    <!-- SPLASH SCREEN -->
+    <LinearLayout
+        android:id="@+id/splash"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="#E10716"
+        android:padding="28dp">
+
+        <ImageView
+            android:layout_width="190dp"
+            android:layout_height="190dp"
+            android:src="@drawable/daachi_camel_white"
+            android:contentDescription="Daachi camel logo"
+            android:scaleType="fitCenter" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Daachi™ Kitchenware"
+            android:textColor="#FFFFFF"
+            android:textSize="29sp"
+            android:textStyle="bold"
+            android:gravity="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="ALWAYS HAPPINESS"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp"
+            android:letterSpacing="0.16" />
+
+    </LinearLayout>
+
 </FrameLayout>
