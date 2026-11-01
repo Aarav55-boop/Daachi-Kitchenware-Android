@@ -1,5 +1,5 @@
 
-name: Build Daachi Android AAB
+name: Build Daachi Android APK and AAB
 
 on:
   workflow_dispatch:
@@ -9,7 +9,7 @@ on:
 
 jobs:
   build:
-    name: Build Android AAB
+    name: Build Daachi Android App
     runs-on: ubuntu-24.04
 
     permissions:
@@ -26,6 +26,7 @@ jobs:
           java-version: '17'
 
       - name: Setup Android SDK
+        shell: bash
         run: |
           echo "Android SDK: $ANDROID_HOME"
 
@@ -36,6 +37,10 @@ jobs:
           fi
 
           if [ ! -x "$SDKMANAGER" ]; then
+            SDKMANAGER="$(find "$ANDROID_HOME/cmdline-tools" -name sdkmanager -type f | head -n 1)"
+          fi
+
+          if [ -z "$SDKMANAGER" ] || [ ! -x "$SDKMANAGER" ]; then
             echo "Error: sdkmanager not found"
             exit 1
           fi
@@ -55,14 +60,26 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build Daachi Release AAB
+      - name: Build Debug APK
+        run: |
+          gradle --no-daemon :app:assembleDebug
+
+      - name: Build Release AAB
         run: |
           gradle --no-daemon :app:bundleRelease
+
+      - name: Upload Daachi APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Daachi-Kitchenware-APK
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Upload Daachi AAB
         uses: actions/upload-artifact@v4
         with:
-          name: Daachi-Kitchenware-release-AAB-unsigned
+          name: Daachi-Kitchenware-AAB
           path: app/build/outputs/bundle/release/*.aab
           if-no-files-found: error
           retention-days: 30
