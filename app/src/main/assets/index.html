@@ -38,7 +38,7 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* SPLASH AND WELCOME SCREENS */
+/* SPLASH AND WELCOME */
 
 #splash, #welcome {
   position: fixed;
@@ -128,7 +128,7 @@ button {
   overflow: hidden;
 }
 
-/* PROFESSIONAL RED HEADER */
+/* CLEAN PROFESSIONAL HEADER */
 
 .header {
   width: 100%;
@@ -144,25 +144,25 @@ button {
   box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* ORIGINAL CAMEL LOGO */
+/* SMALLER CAMEL LOGO */
 
 .mini-camel {
-  width: 84px;
-  height: 56px;
+  width: 55px;
+  height: 42px;
   object-fit: contain;
-  object-position: left center;
+  object-position: center;
   display: block;
 }
 
-/* THREE DOT MENU */
+/* SMALLER THREE-DOT MENU */
 
 .menu-button {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 40px;
   border: none;
   background: transparent;
   color: #ffffff;
-  font-size: 32px;
+  font-size: 25px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -179,7 +179,7 @@ button {
   outline-offset: 2px;
 }
 
-/* ORIGINAL DAACHI WEBSITE */
+/* OFFICIAL WEBSITE */
 
 .site-frame {
   display: block;
@@ -190,7 +190,7 @@ button {
   background: #ffffff;
 }
 
-/* SIDE MENU OVERLAY */
+/* MENU BACKDROP */
 
 .scrim {
   display: none;
@@ -200,7 +200,7 @@ button {
   z-index: 29;
 }
 
-/* PROFESSIONAL SIDE DRAWER */
+/* SIDE DRAWER */
 
 .drawer {
   position: fixed;
@@ -281,7 +281,7 @@ button {
   line-height: 1.5;
 }
 
-/* SMALL MOBILE SCREENS */
+/* SMALL SCREENS */
 
 @media (max-width: 360px) {
   .header {
@@ -291,8 +291,8 @@ button {
   }
 
   .mini-camel {
-    width: 76px;
-    height: 52px;
+    width: 50px;
+    height: 40px;
   }
 
   .brand {
@@ -300,14 +300,11 @@ button {
   }
 }
 
-/* REDUCED MOTION */
-
 @media (prefers-reduced-motion: reduce) {
   .drawer {
     transition: none;
   }
 }
-
 </style>
 </head>
 
@@ -328,7 +325,6 @@ button {
 <!-- WELCOME SCREEN -->
 
 <section id="welcome">
-
   <div class="welcome-logo">
     <img
       src="camel-white.png"
@@ -350,14 +346,11 @@ button {
   >
     Start Shopping
   </button>
-
 </section>
 
 <!-- MAIN SHOPPING SCREEN -->
 
 <main id="app" class="app">
-
-  <!-- ONLY CAMEL LOGO AND THREE DOT MENU -->
 
   <header class="header">
 
@@ -377,8 +370,6 @@ button {
     >&#8942;</button>
 
   </header>
-
-  <!-- OFFICIAL DAACHI WEBSITE -->
 
   <iframe
     class="site-frame"
@@ -403,15 +394,9 @@ button {
 >
 
   <div class="drawer-head">
-
-    <img
-      src="camel-white.png"
-      alt="Daachi Logo"
-    >
-
+    <img src="camel-white.png" alt="Daachi Logo">
     <strong>Daachi™ Kitchenware</strong>
     <small>ALWAYS HAPPINESS</small>
-
   </div>
 
   <nav class="nav">
@@ -479,9 +464,6 @@ button {
 </aside>
 
 <script>
-
-/* MAIN ELEMENTS */
-
 const splash = document.getElementById('splash');
 const welcome = document.getElementById('welcome');
 const app = document.getElementById('app');
@@ -493,27 +475,22 @@ const menuButton = document.getElementById('menu');
 /* SPLASH SCREEN */
 
 setTimeout(() => {
-
   splash.style.display = 'none';
 
   try {
-
     if (localStorage.getItem('daachi-welcomed')) {
       app.style.display = 'flex';
     } else {
       welcome.style.display = 'flex';
     }
-
   } catch (error) {
     welcome.style.display = 'flex';
   }
-
 }, 1450);
 
 /* START SHOPPING */
 
 document.getElementById('start').addEventListener('click', () => {
-
   try {
     localStorage.setItem('daachi-welcomed', '1');
   } catch (error) {
@@ -522,15 +499,12 @@ document.getElementById('start').addEventListener('click', () => {
 
   welcome.style.display = 'none';
   app.style.display = 'flex';
-
 });
 
 /* SIDE MENU */
 
 function toggleMenu(open) {
-
   drawer.classList.toggle('open', open);
-
   scrim.style.display = open ? 'block' : 'none';
 
   menuButton.setAttribute(
@@ -542,7 +516,6 @@ function toggleMenu(open) {
     'aria-hidden',
     String(!open)
   );
-
 }
 
 menuButton.addEventListener('click', () => {
@@ -554,23 +527,16 @@ scrim.addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', event => {
-
   if (event.key === 'Escape') {
     toggleMenu(false);
   }
-
 });
 
-/* CLOSE MENU WHEN LINK IS SELECTED */
-
 document.querySelectorAll('.nav a').forEach(link => {
-
   link.addEventListener('click', () => {
     toggleMenu(false);
   });
-
 });
-
 </script>
 
 </body>
