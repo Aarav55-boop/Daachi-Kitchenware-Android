@@ -57,17 +57,55 @@ jobs:
             "platforms;android-35" \
             "build-tools;35.0.0"
 
+      - name: Validate Android XML Files
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+          import xml.etree.ElementTree as ET
+
+          paths = [
+              "app/src/main/AndroidManifest.xml"
+          ]
+
+          for root, dirs, files in os.walk("app/src/main/res"):
+              for filename in files:
+                  if filename.endswith(".xml"):
+                      paths.append(os.path.join(root, filename))
+
+          errors = 0
+
+          for path in paths:
+              try:
+                  ET.parse(path)
+                  print(f"OK: {path}")
+              except ET.ParseError as error:
+                  print(f"ERROR: {path}: {error}")
+                  errors += 1
+
+          if errors:
+              print(f"XML validation failed: {errors} file(s)")
+              sys.exit(1)
+
+          print("All Android XML files passed validation.")
+          PY
+
       - name: Build Debug APK
         shell: bash
         run: |
-          set -e
-          gradle --no-daemon --stacktrace :app:assembleDebug
+          gradle --no-daemon \
+            --console=plain \
+            --stacktrace \
+            :app:assembleDebug
 
       - name: Build Release AAB
         shell: bash
         run: |
-          set -e
-          gradle --no-daemon --stacktrace :app:bundleRelease
+          gradle --no-daemon \
+            --console=plain \
+            --stacktrace \
+            :app:bundleRelease
 
       - name: Upload Installable APK
         uses: actions/upload-artifact@v4
