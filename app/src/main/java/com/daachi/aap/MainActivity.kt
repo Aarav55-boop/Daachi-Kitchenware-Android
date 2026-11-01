@@ -4,7 +4,11 @@ package com.daachi.aap
 import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceRequest
 import android.webkit.WebSettings
@@ -19,15 +23,64 @@ class MainActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        webView = WebView(this)
-        setContentView(webView)
+        // Make sure app is not in fullscreen mode.
+        window.clearFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
 
-        // Enable JavaScript for HTML design and side menu
+        // Red Android status bar.
+        window.addFlags(
+            WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS
+        )
+        window.statusBarColor = Color.rgb(189, 9, 18)
+        window.navigationBarColor = Color.BLACK
+
+        // Keep status bar icons light.
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility =
+            window.decorView.systemUiVisibility and
+            View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR.inv()
+
+        webView = WebView(this)
+
+        webView.setBackgroundColor(Color.WHITE)
+
+        // Keep the WebView below Android system bars.
+        // Works with edge-to-edge layouts too.
+        webView.setOnApplyWindowInsetsListener { view, insets ->
+
+            val statusBars = insets.getInsets(
+                android.view.WindowInsets.Type.statusBars()
+            )
+
+            val navigationBars = insets.getInsets(
+                android.view.WindowInsets.Type.navigationBars()
+            )
+
+            view.setPadding(
+                0,
+                statusBars.top,
+                0,
+                navigationBars.bottom
+            )
+
+            insets
+        }
+
+        setContentView(
+            webView,
+            ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+        )
+
+        // Enable JavaScript for HTML design and side menu.
         webView.settings.javaScriptEnabled = true
         webView.settings.domStorageEnabled = true
         webView.settings.cacheMode = WebSettings.LOAD_DEFAULT
 
-        // Allow website content inside the app
+        // Keep HTTPS content secure.
         webView.settings.mixedContentMode =
             WebSettings.MIXED_CONTENT_NEVER_ALLOW
 
@@ -46,7 +99,7 @@ class MainActivity : Activity() {
                 val uri = request?.url ?: return false
                 val scheme = uri.scheme?.lowercase()
 
-                // Allow website inside iframe.
+                // Allow website content inside iframe.
                 // Open external links in phone browser.
                 if (scheme == "http" || scheme == "https") {
 
@@ -86,7 +139,7 @@ class MainActivity : Activity() {
             }
         }
 
-        // Load Daachi HTML design from assets folder
+        // Load the updated HTML from assets folder.
         webView.loadUrl("file:///android_asset/index.html")
     }
 
