@@ -4,14 +4,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#bd0912">
+<meta name="theme-color" content="#E10716">
 <title>Daachi™ Kitchenware</title>
 
 <style>
 :root {
-  --red: #bd0912;
-  --deep: #ad0712;
-  --ink: #212121;
+  --red: #E10716;
+  --deep: #B80612;
+  --ink: #222222;
+  --muted: #666666;
 }
 
 * {
@@ -20,9 +21,10 @@
 
 html, body {
   margin: 0;
+  padding: 0;
   width: 100%;
   height: 100%;
-  font-family: Arial, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   color: var(--ink);
   background: #ffffff;
 }
@@ -36,7 +38,7 @@ button {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* SPLASH AND WELCOME */
+/* SPLASH AND WELCOME SCREENS */
 
 #splash, #welcome {
   position: fixed;
@@ -52,12 +54,12 @@ button {
 
 #splash {
   background: var(--red);
-  color: white;
+  color: #ffffff;
 }
 
 #welcome {
   display: none;
-  background: white;
+  background: #ffffff;
 }
 
 .logo {
@@ -96,24 +98,29 @@ button {
 .intro {
   max-width: 290px;
   line-height: 1.5;
-  color: #555;
+  color: #555555;
 }
 
 .primary {
   background: var(--red);
   border: 0;
   border-radius: 10px;
-  color: white;
+  color: #ffffff;
   font-weight: 700;
   padding: 15px 25px;
   min-width: 220px;
   margin-top: 28px;
 }
 
-/* MAIN APP */
+.primary:active {
+  background: var(--deep);
+}
+
+/* MAIN SHOPPING APP */
 
 .app {
   display: none;
+  width: 100%;
   height: 100vh;
   height: 100dvh;
   flex-direction: column;
@@ -121,68 +128,79 @@ button {
   overflow: hidden;
 }
 
-/* CLEAN TOP HEADER */
+/* PROFESSIONAL RED HEADER */
 
 .header {
-  height: 54px;
-  min-height: 54px;
+  width: 100%;
+  height: 68px;
+  min-height: 68px;
   background: var(--red);
-  color: white;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 15px;
+  padding: 0 20px;
   flex-shrink: 0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.12);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
+/* ORIGINAL CAMEL LOGO */
+
 .mini-camel {
-  width: 62px;
-  height: 45px;
+  width: 84px;
+  height: 56px;
   object-fit: contain;
+  object-position: left center;
   display: block;
 }
 
+/* THREE DOT MENU */
+
 .menu-button {
-  border: 0;
+  width: 48px;
+  height: 48px;
+  border: none;
   background: transparent;
-  color: white;
-  font-size: 30px;
-  width: 44px;
-  height: 44px;
+  color: #ffffff;
+  font-size: 32px;
+  line-height: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  line-height: 1;
 }
 
 .menu-button:active {
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.16);
 }
 
-/* WEBSITE */
+.menu-button:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+/* ORIGINAL DAACHI WEBSITE */
 
 .site-frame {
-  border: 0;
+  display: block;
   width: 100%;
   flex: 1;
   min-height: 0;
-  display: block;
-  background: white;
+  border: none;
+  background: #ffffff;
 }
 
-/* SIDE MENU BACKDROP */
+/* SIDE MENU OVERLAY */
 
 .scrim {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.52);
+  background: rgba(0,0,0,0.50);
   z-index: 29;
 }
 
-/* SIDE DRAWER */
+/* PROFESSIONAL SIDE DRAWER */
 
 .drawer {
   position: fixed;
@@ -190,11 +208,11 @@ button {
   bottom: 0;
   left: 0;
   width: min(315px, 85vw);
-  background: white;
+  background: #ffffff;
   z-index: 30;
   transform: translateX(-105%);
   transition: transform 0.25s ease;
-  box-shadow: 4px 0 25px rgba(0,0,0,0.2);
+  box-shadow: 4px 0 25px rgba(0,0,0,0.18);
   overflow-y: auto;
   overscroll-behavior: contain;
 }
@@ -205,7 +223,7 @@ button {
 
 .drawer-head {
   background: var(--red);
-  color: white;
+  color: #ffffff;
   padding: 30px 20px 22px;
 }
 
@@ -213,15 +231,19 @@ button {
   width: 95px;
   height: 80px;
   object-fit: contain;
+  display: block;
 }
 
 .drawer-head strong {
   display: block;
   font-size: 21px;
+  margin-top: 8px;
 }
 
 .drawer-head small {
+  display: block;
   letter-spacing: 1.8px;
+  margin-top: 5px;
 }
 
 .nav {
@@ -234,14 +256,15 @@ button {
   gap: 13px;
   padding: 16px 12px;
   border-radius: 9px;
-  color: #222;
+  color: #222222;
   text-decoration: none;
   font-weight: 600;
 }
 
 .nav a:hover,
 .nav a:active {
-  background: #f8eded;
+  background: #fff0f1;
+  color: var(--deep);
 }
 
 .nav .ico {
@@ -253,21 +276,38 @@ button {
 
 .drawer-note {
   font-size: 12px;
-  color: #777;
-  padding: 10px 24px;
+  color: #777777;
+  padding: 10px 24px 22px;
   line-height: 1.5;
 }
 
+/* SMALL MOBILE SCREENS */
+
 @media (max-width: 360px) {
   .header {
-    height: 50px;
-    min-height: 50px;
+    height: 64px;
+    min-height: 64px;
+    padding: 0 16px;
   }
 
   .mini-camel {
-    width: 56px;
+    width: 76px;
+    height: 52px;
+  }
+
+  .brand {
+    font-size: 27px;
   }
 }
+
+/* REDUCED MOTION */
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer {
+    transition: none;
+  }
+}
+
 </style>
 </head>
 
@@ -288,6 +328,7 @@ button {
 <!-- WELCOME SCREEN -->
 
 <section id="welcome">
+
   <div class="welcome-logo">
     <img
       src="camel-white.png"
@@ -302,21 +343,28 @@ button {
     Shop directly from our official website.
   </p>
 
-  <button class="primary" id="start">
+  <button
+    class="primary"
+    id="start"
+    type="button"
+  >
     Start Shopping
   </button>
+
 </section>
 
 <!-- MAIN SHOPPING SCREEN -->
 
 <main id="app" class="app">
 
+  <!-- ONLY CAMEL LOGO AND THREE DOT MENU -->
+
   <header class="header">
 
     <img
       class="mini-camel"
       src="camel-white.png"
-      alt="Daachi camel logo"
+      alt="Daachi Camel Logo"
     >
 
     <button
@@ -329,6 +377,8 @@ button {
     >&#8942;</button>
 
   </header>
+
+  <!-- OFFICIAL DAACHI WEBSITE -->
 
   <iframe
     class="site-frame"
@@ -353,9 +403,15 @@ button {
 >
 
   <div class="drawer-head">
-    <img src="camel-white.png" alt="Daachi logo">
+
+    <img
+      src="camel-white.png"
+      alt="Daachi Logo"
+    >
+
     <strong>Daachi™ Kitchenware</strong>
     <small>ALWAYS HAPPINESS</small>
+
   </div>
 
   <nav class="nav">
@@ -424,6 +480,8 @@ button {
 
 <script>
 
+/* MAIN ELEMENTS */
+
 const splash = document.getElementById('splash');
 const welcome = document.getElementById('welcome');
 const app = document.getElementById('app');
@@ -439,11 +497,13 @@ setTimeout(() => {
   splash.style.display = 'none';
 
   try {
+
     if (localStorage.getItem('daachi-welcomed')) {
       app.style.display = 'flex';
     } else {
       welcome.style.display = 'flex';
     }
+
   } catch (error) {
     welcome.style.display = 'flex';
   }
@@ -457,7 +517,7 @@ document.getElementById('start').addEventListener('click', () => {
   try {
     localStorage.setItem('daachi-welcomed', '1');
   } catch (error) {
-    // Continue if storage is unavailable.
+    // Continue when storage is unavailable.
   }
 
   welcome.style.display = 'none';
@@ -467,28 +527,48 @@ document.getElementById('start').addEventListener('click', () => {
 
 /* SIDE MENU */
 
-function toggle(open) {
+function toggleMenu(open) {
 
   drawer.classList.toggle('open', open);
+
   scrim.style.display = open ? 'block' : 'none';
 
-  menuButton.setAttribute('aria-expanded', String(open));
-  drawer.setAttribute('aria-hidden', String(!open));
+  menuButton.setAttribute(
+    'aria-expanded',
+    String(open)
+  );
+
+  drawer.setAttribute(
+    'aria-hidden',
+    String(!open)
+  );
 
 }
 
 menuButton.addEventListener('click', () => {
-  toggle(true);
+  toggleMenu(true);
 });
 
 scrim.addEventListener('click', () => {
-  toggle(false);
+  toggleMenu(false);
 });
 
 document.addEventListener('keydown', event => {
+
   if (event.key === 'Escape') {
-    toggle(false);
+    toggleMenu(false);
   }
+
+});
+
+/* CLOSE MENU WHEN LINK IS SELECTED */
+
+document.querySelectorAll('.nav a').forEach(link => {
+
+  link.addEventListener('click', () => {
+    toggleMenu(false);
+  });
+
 });
 
 </script>
